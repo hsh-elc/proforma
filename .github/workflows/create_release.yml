@@ -62,7 +62,7 @@ jobs:
           STAMP=$(TZ=Europe/Berlin date +%0Y%0m%0d-%0H%0M%0S)
           echo "Current branch: '${BRANCH}'"
           echo "Files to be included into release ${{ env.RELEASE_VERSION }}:"
-          ls "${RUNNER_TEMP}/dist/*"
+          ls "${RUNNER_TEMP}/dist/"
           if [[ "$BRANCH" == "master" ]]; then
             THE_TAG="${{ env.RELEASE_VERSION }}"
             gh release create "v$THE_TAG" \
