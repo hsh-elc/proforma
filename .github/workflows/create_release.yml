@@ -41,10 +41,7 @@ jobs:
         run: |
           destdir="${RUNNER_TEMP}/dist/"
           mkdir "$destdir"
-          pwd
-          ls
-          cd proforma
-          for subdir in $( ls proforma* ); do
+          for subdir in $( ls -1 | grep "^proforma" ); do
               jarname=$subdir/target/$subdir-${{ env.RELEASE_VERSION }}.jar
               if [ -e $jarname ];  then
                   cp -v $jarname "$destdir"
