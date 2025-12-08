@@ -1,0 +1,71 @@
+name: Create Release
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - 'develop'
+      - 'master'
+  
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: Create Release
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: read
+
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'adopt'
+          cache: maven
+
+      - name: Set Release version env variable
+        run: |
+          cd ${SUBDIR}
+          echo "RELEASE_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV
+
+      - name: Build with Maven
+        run: |
+          mvn --batch-mode --update-snapshots --also-make clean package
+
+      - name: Provide files
+        run: |
+          mkdir "${RUNNER_TEMP}/dist"
+          cp "proformaxml/target/proformaxml-${{ env.RELEASE_VERSION }}" "${RUNNER_TEMP}/dist/"
+          cp "proformaxml-2-1/target/proformaxml-2-1-${{ env.RELEASE_VERSION }}" "${RUNNER_TEMP}/dist/"
+          cp "proformautil/target/proformautil-${{ env.RELEASE_VERSION }}" "${RUNNER_TEMP}/dist/"
+          cp "proformautil-2-1/target/proformautil-2-1-${{ env.RELEASE_VERSION }}" "${RUNNER_TEMP}/dist/"
+
+      - name: Create release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Get branch name and repace special chars into "-"
+          BRANCH=$(echo ${{ github.ref_name }} | sed 's/[^a-zA-Z0-9]/-/g')
+          STAMP=$(TZ=Europe/Berlin date +%0Y%0m%0d-%0H%0M%0S)
+          echo "-current branch: '${BRANCH}'"
+          if [[ "$BRANCH" == "master" ]]; then
+            THE_TAG="${{ env.RELEASE_VERSION }}"
+            gh release create "v$THE_TAG" \
+              --verify-tag \
+              --repo="$GITHUB_REPOSITORY" \
+              --title="${GITHUB_REPOSITORY#*/}-$THE_TAG" \
+              "${RUNNER_TEMP}/dist/*"
+          else
+            THE_TAG="${{ env.RELEASE_VERSION }}-${BRANCH}-${STAMP}"
+            gh release create "v$THE_TAG" \
+              --draft --prerelease \
+              --repo="$GITHUB_REPOSITORY" \
+              --title="${GITHUB_REPOSITORY#*/}-$THE_TAG" \
+              "${RUNNER_TEMP}/dist/*"
+          fi
