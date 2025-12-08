@@ -44,11 +44,11 @@ jobs:
           for subdir in $( ls proforma* ); do
               jarname=$subdir/target/$subdir-${{ env.RELEASE_VERSION }}.jar
               if [ -e $jarname ];  then
-                  cp $jarname "$destdir"
+                  cp -v $jarname "$destdir"
               fi
               jarname2=$subdir/target/$subdir-${{ env.RELEASE_VERSION }}-jar-with-dependencies.jar
               if [ -e $jarname2 ];  then
-                  cp $jarname2 "$destdir"
+                  cp -v $jarname2 "$destdir"
               fi
           done
 
@@ -59,7 +59,9 @@ jobs:
           # Get branch name and repace special chars into "-"
           BRANCH=$(echo ${{ github.ref_name }} | sed 's/[^a-zA-Z0-9]/-/g')
           STAMP=$(TZ=Europe/Berlin date +%0Y%0m%0d-%0H%0M%0S)
-          echo "-current branch: '${BRANCH}'"
+          echo "Current branch: '${BRANCH}'"
+          echo "Files to be included into release ${{ env.RELEASE_VERSION }}:"
+          ls "${RUNNER_TEMP}/dist/*"
           if [[ "$BRANCH" == "master" ]]; then
             THE_TAG="${{ env.RELEASE_VERSION }}"
             gh release create "v$THE_TAG" \
