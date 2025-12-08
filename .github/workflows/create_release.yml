@@ -39,11 +39,18 @@ jobs:
 
       - name: Provide files
         run: |
-          mkdir "${RUNNER_TEMP}/dist"
-          cp "proformaxml/target/proformaxml-${{ env.RELEASE_VERSION }}" "${RUNNER_TEMP}/dist/"
-          cp "proformaxml-2-1/target/proformaxml-2-1-${{ env.RELEASE_VERSION }}" "${RUNNER_TEMP}/dist/"
-          cp "proformautil/target/proformautil-${{ env.RELEASE_VERSION }}" "${RUNNER_TEMP}/dist/"
-          cp "proformautil-2-1/target/proformautil-2-1-${{ env.RELEASE_VERSION }}" "${RUNNER_TEMP}/dist/"
+          destdir="${RUNNER_TEMP}/dist/"
+          mkdir "$destdir"
+          for subdir in $( ls proforma* ); do
+              jarname=$subdir/target/$subdir-${{ env.RELEASE_VERSION }}.jar
+              if [ -e $jarname ];  then
+                  cp $jarname "$destdir"
+              fi
+              jarname2=$subdir/target/$subdir-${{ env.RELEASE_VERSION }}-jar-with-dependencies.jar
+              if [ -e $jarname2 ];  then
+                  cp $jarname2 "$destdir"
+              fi
+          done
 
       - name: Create release
         env:
