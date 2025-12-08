@@ -41,6 +41,9 @@ jobs:
         run: |
           destdir="${RUNNER_TEMP}/dist/"
           mkdir "$destdir"
+          pwd
+          ls
+          cd proforma
           for subdir in $( ls proforma* ); do
               jarname=$subdir/target/$subdir-${{ env.RELEASE_VERSION }}.jar
               if [ -e $jarname ];  then
@@ -51,6 +54,7 @@ jobs:
                   cp -v $jarname2 "$destdir"
               fi
           done
+          cd ..
 
       - name: Create release
         env:
