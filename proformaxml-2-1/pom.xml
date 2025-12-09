@@ -9,9 +9,7 @@
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
-    <groupId>proforma</groupId>
     <artifactId>proformaxml-2-1</artifactId>
-    <version>0.4.0</version>
 
     <name>proformaxml-2-1</name>
 

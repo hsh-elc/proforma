@@ -47,8 +47,9 @@ jobs:
               if [ -e $jarname2 ];  then
                   cp -v $jarname2 "$destdir"
               fi
+              cp -v $subdir/pom.xml "$destdir/$subdir-${{ env.RELEASE_VERSION }}.pom"
           done
-          cd ..
+          cp -v pom.xml "$destdir/proforma-${{ env.RELEASE_VERSION }}.pom"
 
       - name: Create release
         env:

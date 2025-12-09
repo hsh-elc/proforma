@@ -8,9 +8,7 @@
         <version>0.4.0</version>
     </parent>
 
-    <groupId>proforma</groupId>
     <artifactId>proformautil</artifactId>
-    <version>0.4.0</version>
 
     <name>proformautil</name>
 
