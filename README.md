@@ -18,6 +18,7 @@ warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Gen
 You should have received a copy of the GNU General Public License along with this program. If not,
 see <http://www.gnu.org/licenses/>.
 
+
 ## Installation ##
 
 You can download the current release and install it in your local maven repository with the command line tool:
@@ -31,4 +32,5 @@ Help for the tool is available:
 ```bash
 mvnInstallProformaDependenciesFromGithub.sh -h
 ```
+
 
