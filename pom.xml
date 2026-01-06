@@ -5,7 +5,7 @@
     <groupId>proforma</groupId>
     <artifactId>proforma</artifactId>
     <packaging>pom</packaging>
-    <version>0.4.0</version>
+    <version>0.4.1</version>
 
     <name>proforma</name>
     <description>A java binding library for the XML exchange format of programming exercises

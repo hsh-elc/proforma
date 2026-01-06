@@ -5,6 +5,8 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
 import java.math.BigDecimal;
 
 
@@ -32,6 +34,7 @@ public class GradesNullifyLiteralType
     extends GradesNullifyComparisonOperandType {
 
     @XmlAttribute(name = "value", required = true)
+    @XmlJavaTypeAdapter(BigDecimal18PlaceAdapter.class)
     protected BigDecimal value;
 
     /**
