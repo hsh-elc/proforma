@@ -1,7 +1,7 @@
 package proforma.util.div;
 
-import javax.xml.bind.*;
-import javax.xml.bind.annotation.XmlSchema;
+import jakarta.xml.bind.*;
+import jakarta.xml.bind.annotation.XmlSchema;
 import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;

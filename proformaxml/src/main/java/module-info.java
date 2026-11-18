@@ -1,5 +1,5 @@
 module proforma.xml {
-    requires java.xml.bind;
+    requires jakarta.xml.bind;
 
     exports proforma.xml;
 }

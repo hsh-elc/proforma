@@ -1,5 +1,5 @@
 module proforma.util {
-    requires java.xml.bind;
+    requires jakarta.xml.bind;
 
     requires org.apache.commons.compress;
     requires org.apache.commons.io;

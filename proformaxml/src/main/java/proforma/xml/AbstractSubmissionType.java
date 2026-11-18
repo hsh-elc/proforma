@@ -1,6 +1,6 @@
 package proforma.xml;
 
-import javax.xml.bind.annotation.XmlTransient;
+import jakarta.xml.bind.annotation.XmlTransient;
 
 @XmlTransient
 //XmlSeeAlso leads to a circular dependency between the general proformaxml module and

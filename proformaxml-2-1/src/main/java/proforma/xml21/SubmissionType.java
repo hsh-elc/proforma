@@ -3,7 +3,7 @@ package proforma.xml21;
 
 import proforma.xml.AbstractSubmissionType;
 
-import javax.xml.bind.annotation.*;
+import jakarta.xml.bind.annotation.*;
 
 
 /**
