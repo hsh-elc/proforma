@@ -120,7 +120,7 @@ public class Zip {
         try (ZipArchiveInputStream zip = new ZipArchiveInputStream(new BufferedInputStream(zipStream))) {
             ByteArrayOutputStream out = new ByteArrayOutputStream();
             ZipArchiveEntry entry = null;
-            while (null != (entry = zip.getNextZipEntry())) {
+            while (null != (entry = zip.getNextEntry())) {
                 Path zePath = Paths.get(entry.getName());
                 //System.out.println("Checking file/derectory in ZIP: " + zePath);
                 if (zePath.equals(filePath)) {
@@ -157,7 +157,7 @@ public class Zip {
         try (ZipArchiveInputStream zip = new ZipArchiveInputStream(new BufferedInputStream(zipStream))) {
             ZipArchiveEntry entry = null;
             byte[] buffer = new byte[10000000]; // 10Mb file
-            while (null != (entry = zip.getNextZipEntry())) {
+            while (null != (entry = zip.getNextEntry())) {
                 if (!entry.isDirectory()) {
                     ByteArrayOutputStream out = new ByteArrayOutputStream();
                     int len;
